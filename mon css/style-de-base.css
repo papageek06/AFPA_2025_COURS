@@ -1,0 +1,32 @@
+/* padding et margin */
+
+.p1 {
+    padding: 1rem ;}
+.p2 {
+    padding: 2rem ;}
+.p3 {
+    padding: 3rem ;}
+
+.m1 { margin: 1rem ;}
+
+.m2 { margin: 2rem ;}
+
+.m3 { margin: 3rem ;}
+
+
+/* flexbox */
+
+.d-flex { display: flex;}
+.justify-content-between { justify-content: space-between; }
+.justify-content-center { justify-content: center; }
+.justify-content-around { justify-content: space-around; }
+.justify-content-end { justify-content: end; }
+
+.align-item-center { align-items: center; }
+.align-item-end { align-items:end; }
+
+
+/* deco */ 
+
+.box-shadow { box-shadow: 10px 10px 5px;}
+.border { border: 1px solid black; }

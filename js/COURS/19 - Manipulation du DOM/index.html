@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>19 - Manipulation du DOM</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Natural Selection -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Natural</h2>
+        <p id="myPgh">My paragraph</p>
+      </div>
+
+      <!-- By Id -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>ID</h2>
+        <p id="myOtherPgh">My other paragraph</p>
+      </div>
+
+      <!-- By Class -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Class</h2>
+        <div class="myDiv">First Div</div>
+        <div class="myDiv">Second Div</div>
+        <div class="myDiv">Third Div</div>
+      </div>
+
+      <!-- By Type -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Type</h2>
+        <ul style="list-style: none; padding: 0">
+          <li>First Li</li>
+          <li>Second Li</li>
+          <li>Third Li</li>
+        </ul>
+      </div>
+
+      <!-- By Name -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Name</h2>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          name="userName"
+        />
+      </div>
+
+      <!-- querySelector -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>querySelector</h2>
+        <section>My section</section>
+      </div>
+
+      <!-- querySelectorAll -->
+
+      <div id="querySelectorAll" class="row mt-5 p-3 border flex-column">
+        <h2>querySelectorAll</h2>
+        <p>In this paragraph there is a <span> span </span></p>
+        <p>In this paragraph there is a <span> span </span></p>
+        <p>In this paragraph there is a <span> span </span></p>
+      </div>
+
+      <!-- by attribute -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>By Attribute</h2>
+        <img src="img/moto.jpg" width="200px" title="my img title" />
+      </div>
+
+      <!-- Child And Parent Nodes -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Nodes</h2>
+        <section>
+          This is a section width (parent Node)
+          <div>
+            a Div Inside (section child node)
+            <p>and a paragraph inside my div (section and div child node)</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

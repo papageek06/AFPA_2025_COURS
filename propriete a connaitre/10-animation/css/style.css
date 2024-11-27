@@ -1,0 +1,92 @@
+body {
+ 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@keyframes animation1 {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
+
+@keyframes animation2 {
+  0% {top: 100%;left: 0%;}
+  5% {top: 100% ;left: 20%;}
+  10% {top: 80%;left: 20%;}
+  15% {top: 80%;left: 40%;}
+  20% {top: 60%;left: 40%;}
+  25% {top: 60%;left: 60%;}
+  30% {top: 40%;left: 60%;}
+  35% {top: 40%;left: 80%;}
+  40% {top: 20%;left: 80%;}
+  45% {top: 20%;left: 100%;}
+  50% {top: 0%;left: 100%;}
+  55% {top: 20%;left: 100%;}
+  60% {top: 20%;left: 80%;}
+  65% {top: 40%;left: 80%;}
+  70% {top: 40%;left: 60%;}
+  75% {top: 60%;left: 60%;}
+  80% {top: 60%;left: 40%;}
+  85% {top: 80%;left: 40%;}
+  90% {top: 80%;left: 20%;}
+  95% {top: 100% ;left: 20%;}
+  100% {top: 100%;left: 0%;}
+  
+}
+
+@keyframes chargement1 {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+
+}
+#animation-1 {
+  width: 0;
+  height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-left: 60px solid greenyellow;
+  animation-name: animation1;
+  animation-duration: 4s;
+}
+
+
+
+#animation-2 {
+  width: 200px;
+  height: 200px; 
+  top: 100%;
+  left: 0%;
+  position: absolute;
+  
+
+ animation-name: animation2;
+  animation-duration: 10s;
+  animation-delay: 2s;
+  animation-iteration-count:infinite;*/
+  /* animation : animation2 4s ease-in-out 2s infinite; */
+  animation-timing-function: ease-in-out;
+  background-color: red;*/
+}
+
+.chargement {
+
+  width: 200px ;
+  height: 200px;
+  border: 5px solid rgb(236, 46, 46);
+  border-radius: 50%;
+  border-bottom: 5px solid rgb(59, 14, 219);
+  border-left: 5px solid blue;
+  border-right: 5px solid orange;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  animation-name: chargement1;
+  animation-timing-function:ease-in;
+  animation-duration: 800ms;
+  animation-iteration-count: infinite;
+}
+

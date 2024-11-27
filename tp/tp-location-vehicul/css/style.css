@@ -1,0 +1,144 @@
+/* reset css*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* padding et margin */
+
+
+.p1 {
+    padding: 1rem ;}
+.p2 {
+    padding: 2rem ;}
+.p3 {
+    padding: 3rem ;}
+
+.m1 { margin: 1rem ;}
+
+.m2 { margin: 2rem ;}
+
+.m3 { margin: 3rem ;}
+
+
+/* flexbox */
+
+.d-flex { display: flex;}
+.flex-column {flex-direction: column;}
+.justify-content-between { justify-content: space-between; }
+.justify-content-center { justify-content: center; }
+.justify-content-around { justify-content: space-around; }
+.justify-content-end { justify-content: end; }
+
+.align-item-center { align-items: center; }
+.align-item-end { align-items:end; }
+
+
+/* deco */ 
+
+.box-shadow { box-shadow: 10px 10px 5px;}
+.border { border: 1px solid black; }
+
+/* img */
+
+footer img {
+    width: 5%;
+}
+
+article div button {
+    color: white;
+    background-color:rgb(78, 170, 78);
+    width: 30%;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height:650px;
+    background-image: url(../img/background.jpg);
+    background-size: cover ;
+    background-repeat: no-repeat;
+
+    
+}
+
+header h1 ,header p {
+    color: white;
+    margin-top: 20px;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 50px;
+}
+
+header form {
+width: 60%;
+height: 40px;
+    display: flex;
+    justify-content:space-between;
+    background-color: rgba(255, 255, 255,0.5);
+    margin-bottom: 60px;
+    
+}
+
+header form select ,input {
+    margin: 5px;
+    width: 20%;
+}
+
+header form button {
+    background-color: rgb(78, 170, 78);
+    color: white;
+    width: 15%;
+
+}
+header nav {
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    border: 1px solid white;
+
+}
+header nav a {
+    display: none;
+}
+
+article {
+
+  /*  margin: 50px;*/
+}
+
+article div {margin: 50px;}
+
+.color-b {
+    color: black;
+    background-color:black;
+}
+
+#animation:hover {
+    transition-delay: 10s;
+    transition-duration: 10s;
+    animation-name: en-route;
+    animation-duration: 10s;
+}
+
+@keyframes en-route {
+    0%{ position:fixed ; left: 0px;top: 0px;rotate: 0deg;}
+    20%{position: fixed; left:60%;top: 20%;rotate: 45deg;}
+    40%{position: fixed; right: 20px;bottom: 15px;; rotate: 90deg;}
+    60%{position: fixed; left: 20px;bottom: 20px; rotate: 180deg;}
+    100%{position: fixed; left: 30px;top: 30px; rotate: 360deg;}
+}
+
+
+#coucou {
+    width: 0%;
+    height: 0%;
+}

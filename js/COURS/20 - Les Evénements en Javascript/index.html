@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>20 - Les Evénements en Javascript</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- CLICK -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2 onclick="myFunction(this)" id="clickMe">Click</h2>
+        <!-- <button
+          id="demo"
+          onmouseover="document.getElementById('demo').innerHTML = new Date()"
+        >
+          The time is ?
+        </button> -->
+      </div>
+
+      <!-- DBLCLICK -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2 id="dblclickMe">DblClick</h2>
+      </div>
+
+      <!-- HOVER -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Hover</h2>
+        <img src="img/moto.jpg" width="250px" />
+      </div>
+
+      <!-- FOCUS -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Focus</h2>
+        <input
+          id="myFocus"
+          type="text"
+          class="form-control"
+          placeholder="City"
+          aria-label="City"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+
+      <!-- CHANGE -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Change</h2>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+
+      <!-- KEYUP -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Keyup</h2>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          aria-label="Password"
+          aria-describedby="basic-addon1"
+        />
+      </div>
+
+      <!-- SUBMIT -->
+
+      <div class="row mt-5 p-3 border flex-column">
+        <h2>Submit</h2>
+        <form id="myForm">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Password"
+            />
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >Check me out</label
+            >
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <!-- end container -->
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
