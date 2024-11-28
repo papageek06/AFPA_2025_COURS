@@ -30,11 +30,13 @@ class Quiz {
 
     endQuiz() {
         console.log("End quiz");
-
+        Dom.modifyText(this.responseMessage, '');
         Dom.modifyText(this.questionText, '');
         Dom.modifyHtml(this.answersContainer, '');
         Dom.toggleClass(this.scoreContainer, 'hidden', 'remove');
         Dom.modifyText(this.finalScore, `Votre score final est : ${this.score}/${this.questions.length}`);
+        
+    
 
     }
 

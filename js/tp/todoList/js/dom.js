@@ -14,7 +14,6 @@ class Dom {
     }
 
     static modifyText(elemHTML, text) {
-        console.log(elemHTML , text)
         elemHTML.textContent = text;
     }
 
@@ -28,6 +27,26 @@ class Dom {
 
     static createElement(elemHTML) {
         return document.createElement(elemHTML);
+    }
+
+    static createElementsWithInnerElem(parentElem, ...childElem) {
+
+        // Création de mon élément parent
+        let parent = document.createElement(parentElem[0]);
+        parent.className = parentElem[1];
+        parent.id = parentElem[2];
+
+        childElem.forEach( elem => {
+
+            let child = document.createElement(elem[0]);
+            child.classList.add(elem[1]);
+            child.innerText = elem[2];
+            this.appendChild(parent, child);
+
+        });
+
+        return parent;
+
     }
 
     static appendChild(parentElem, childElem) {
