@@ -1,0 +1,23 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "text": "Anniversaire de mariage",
+      "date": "12/09/1991",
+      "reminder": true
+    },
+    {
+      "id": 2,
+      "text": "вынести мусор",
+      "date": "Aujourd'hui",
+      "reminder": false
+    },
+    {
+      "id": 3,
+      "text": "Remplir so we sign",
+      "date": "13/10/2001",
+      "reminder": false
+    }
+  ]
+
+}
