@@ -210,12 +210,134 @@ SELECT title FROM book WHERE id IN (SELECT book_id FROM borrow WHERE user_id = (
 SELECT title FROM book WHERE id NOT IN (SELECT book_id FROM borrow WHERE user_id = (SELECT id FROM user WHERE first_name = 'Chloé'));
 
 
-- Identifiez les abonnés qui ont emprunté un livre d'un auteur précis (par exemple, Alphonse Daudet) :
+- Identifiez les abonnés qui ont emprunté un livre dun auteur précis (par exemple, Alphonse Daudet) :
 
 SELECT first_name, id FROM user WHERE id IN (SELECT user_id FROM borrow WHERE book_id IN (SELECT id FROM book WHERE author = 'ALPHONSE DAUDET'));
 
 
 
+--Min 
+--MAX
+--AVG
+--COUNT
+-- CURDATE()
+
+DELIMITER //
+
+CREATE FUNCTION ConcatNameAndBook(first_name VARCHAR(30), id_book INT)
+RETURNS VARCHAR(100)
+DETERMINISTIC
+BEGIN
+    RETURN CONCAT(first_name, ' a emprunté le livre n° ', id_book);
+END;
+//
+
+DELIMITER ;
+
+
+SELECT ConcatNameAndBook(first_name, book_id) FROM user INNER JOIN borrow ON borrow.user_id = user.id;
+
+DROP FUNCTION ConcatFirstNameAndIdBook;
+
+
+SELECT 
+    ROUTINE_NAME AS Function_Name,
+    ROUTINE_SCHEMA AS Database_Name,
+    ROUTINE_TYPE AS Type,
+    DATA_TYPE AS Return_Type
+FROM 
+    information_schema.ROUTINES
+WHERE 
+    ROUTINE_TYPE = 'FUNCTION'
+    AND ROUTINE_SCHEMA = 'library';
+
+// PROCÉDURE STOCKÉE (STORED PROCEDURES)
+
+-- affiche les titres des livres que Chloé n'a pas encore emprunté
+SELECT title FROM book WHERE id NOT IN (
+SELECT book_id FROM borrow WHERE user_id IN(
+SELECT id FROM user WHERE first_name = 'Chloé'));
+
+
+DELIMITER //
+
+CREATE PROCEDURE booksNotBorrowedByUser(IN firstName VARCHAR(30))
+BEGIN
+    SELECT title  FROM book  WHERE id NOT IN (
+    SELECT book_id FROM borrow WHERE user_id IN (
+    SELECT id FROM user WHERE first_name = firstName )
+    );
+END //
+
+DELIMITER ;
+
+call booksNotBorrowedByUser('Guillaume');
+
+//VUE 
+CREATE VIEW view_loan AS
+SELECT u.first_name, b.title, bo.date_out FROM user u, book b, borrow bo
+WHERE b.id = bo.book_id
+AND u.id = bo.user_id;
+
+// TABLE TEMPORAIRES 
+
+
+CREATE TEMPORARY TABLE loans2017 AS
+SELECT u.first_name, b.title, bo.date_out FROM user u, book b, borrow bo
+WHERE b.id = bo.book_id
+AND u.id = bo.user_id
+AND YEAR(bo.date_out) = 2017;
+
+// TRANSACTION ET DES ROLLBACK EN SQL 
+
+TRANSACTION + communication
+// 3 PHASES 
+// INTERPRETATION 
+//EXECUTION
+//RETOUR
+
+START TRANSACTION;
+SELECT * FROM employees;
+UPDATE employees SET salary = 123 WHERE id_employee = 21;
+SELECT * FROM employees;
+ROLLBACK; -- COMMIT
+
+START TRANSACTION;
+SELECT * FROM employees;
+UPDATE employees SET salary = 123 WHERE id_employee = 21;
+SELECT * FROM employees;
+COMMIT;-- VALIDE TOUTE LES MODIFICATION EN BDD DE LA TRANSACTION
+
+
+-- SYSTEM VARIABLES
+
+SHOW VARIABLES;
+SELECT @@version;
+
+-- USER VARIABLES
+
+SET @school = "my school";
+SELECT @school;
+
+-- Analyse
+-- Interpretation
+PREPARE req FROM 'SELECT * FROM employees WHERE first_name = "Nathalie"';
+
+-- Exécution
+EXECUTE req;
+EXECUTE req;
+EXECUTE req;
+EXECUTE req;
+EXECUTE req;
+
+-- 7 étapes
+-- 15 étapes
+
+PREPARE req2 FROM 'SELECT * FROM employees WHERE first_name = ?';
+SET @employee2 = "Melanie";
+EXECUTE req2 USING @employee2;
+
+DROP PREPARE req2;
 
 
 
