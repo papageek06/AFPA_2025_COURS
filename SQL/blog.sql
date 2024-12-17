@@ -55,21 +55,69 @@ CREATE INDEX ID ON articles(users_id, created_at);
 
 --3. Expliquez les avantages des index pour accélérer les recherches.
 --Page  sur 2 3
-TP : Création et gestion d'une base de données pour un blog
-6. Optimisation des requêtes (20 min)
-1. Analysez le plan d'exécution d'une requête complexe avec EXPLAIN.
-2. Identifiez les problèmes de performance et proposez des solutions.
-7. Triggers et contraintes (30 min)
-1. Créez  un  trigger  pour  mettre  à  jour  une  colonne  updated_at   lors  d'une  modification 
-d'article.
-2. Ajoutez une contrainte de clé étrangère entre comments.article_id  et 
-articles.id.
-8. Sécurité et privilèges (20 min)
-1. Créez  un  utilisateur  SQL  avec  des  droits  limités  pour  lire,  insérer  et  mettre  à  jour  les 
-données.
+--  Ameliore la recherche des moteur contre du stockage memoire
+
+
+--TP : Création et gestion d'une base de données pour un blog
+
+--6. Optimisation des requêtes (20 min)
+
+--1. Analysez le plan d'exécution d'une requête complexe avec EXPLAIN.
+EXPLAIN SELECT u.* , a.title FROM users u 
+INNER JOIN articles a ON U.id =a.users_id ; 
+
+--2. Identifiez les problèmes de performance et proposez des solutions.
+
+--utilisation d'index , requete preparer , eviter de lister des colonne non essentiel , eviter les requete where et select
+
+--------------------7. Triggers et contraintes (30 min)
+
+--1. Créez  un  trigger  pour  mettre  à  jour  une  colonne  updated_at   lors  d'une  modification 
+--d'article.
+ALTER TABLE articles ADD update_at INT = 0
+
+CREATE TRIGGER updated_acticle 
+BEFORE UPDATE OR CREATE ON articles
+    BEGIN 
+    UPDATE articles SET update_at = update_at + 1
+
+    END;
+
+
+--2. Ajoutez une contrainte de clé étrangère entre comments.article_id  et 
+--articles.id.
+
+ALTER TABLE comments
+ADD CONSTRAINT fk_article_id
+FOREIGN KEY (article_id)
+REFERENCES articles(id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+
+
+--8. Sécurité et privilèges (20 min)
+--1. Créez  un  utilisateur  SQL  avec  des  droits  limités  pour  lire,  insérer  et  mettre  à  jour  les 
+--données.
+
+CREATE USER blog@marc IDENTIFIED BY 'password1'!
+
+GRANT ALL PRIVILEGE ON blog.* TO blog@marc;
+
+FLUSH PRIVILEGES ;
+
+--
 2. Révoquez ses privilèges si besoin.
-9. Fonction, vues et tables temporaires (30 min)
-1. Créez une fonction utilisateur pour calculer le nombre de commentaires d'un article.
+
+REVOKE [IF EXISTS] ALL [PRIVILEGES], GRANT OPTION
+    FROM user_or_role [, user_or_role] 
+
+
+--9. Fonction, vues et tables temporaires (30 min)
+--1. Créez une fonction utilisateur pour calculer le nombre de commentaires d'un article.
+
+
+
 2. Créez une vue affichant les articles avec leur nombre de commentaires.
 3. Utilisez une table temporaire pour les articles ayant plus de 10 commentaires.
 10. Transactions et requêtes préparées (30 min)
