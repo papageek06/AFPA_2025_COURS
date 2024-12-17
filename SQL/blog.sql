@@ -74,14 +74,24 @@ INNER JOIN articles a ON U.id =a.users_id ;
 
 --1. Créez  un  trigger  pour  mettre  à  jour  une  colonne  updated_at   lors  d'une  modification 
 --d'article.
-ALTER TABLE articles ADD update_at INT = 0
+ALTER TABLE articles ADD update_at INT
 
-CREATE TRIGGER updated_acticle 
-BEFORE UPDATE OR CREATE ON articles
-    BEGIN 
-    UPDATE articles SET update_at = update_at + 1
+DELIMITER //
 
-    END;
+CREATE TRIGGER before_update_articles
+BEFORE UPDATE ON articles
+FOR EACH ROW
+BEGIN
+    
+    IF NEW.update_at IS NULL THEN
+        SET NEW.update_at = 1;
+    ELSE
+        SET NEW.update_at = NEW.update_at + 1;
+    END IF;
+END//
+
+DELIMITER ;
+
 
 
 --2. Ajoutez une contrainte de clé étrangère entre comments.article_id  et 
@@ -116,10 +126,55 @@ REVOKE [IF EXISTS] ALL [PRIVILEGES], GRANT OPTION
 --9. Fonction, vues et tables temporaires (30 min)
 --1. Créez une fonction utilisateur pour calculer le nombre de commentaires d'un article.
 
+DELIMITER //
+CREATE PROCEDURE count_articles ()
+BEGIN 
+SELECT COUNT(id) , articles_id
+FROM comments 
+GROUP BY articles_id ;
+END
+
+//DELIMITER;
+
+CALL count_articles();
 
 
-2. Créez une vue affichant les articles avec leur nombre de commentaires.
-3. Utilisez une table temporaire pour les articles ayant plus de 10 commentaires.
-10. Transactions et requêtes préparées (30 min)
-1. Utilisez une transaction pour insérer un article et ses commentaires de manière atomique.
+--2. Créez une vue affichant les articles avec leur nombre de commentaires.
+
+CREATE VIEW view_article AS 
+SELECT a.* , COUNT(co.articles_id) AS count_comments
+FROM articles a
+INNER JOIN comments co ON a.id = co.articles_id
+GROUP BY articles_id;
+
+SELECT * FROM view_article;
+
+--3. Utilisez une table temporaire pour les articles ayant plus de 10 commentaires.
+
+CREATE TEMPORARY TABLE  ten_article 
+SELECT * 
+FROM articles 
+WHERE update_at >10 ;
+
+--10. Transactions et requêtes préparées (30 min)
+--1. Utilisez une transaction pour insérer un article et ses commentaires de manière atomique.
+
+START TRANSACTION;
+
+INSERT INTO blog.articles (`title`, `content`, `created_at`, `users_id`, `categories_id`) 
+VALUES ('Atomic Transactt', 'This article is inserted with comments atomically.', '2024-12-15', 1, 1);
+
+SET @last_article_id = LAST_INSERT_ID();
+
+INSERT INTO `blog`.`comments` (`content`, `created_at`, `articles_id`, `users_id`) 
+VALUES 
+('First comment on the article.', '2024-12-15', @last_article_id, 2),
+('Second comment on the article.', '2024-12-15', @last_article_id, 3),
+('Third comment, testing transactions.', '2024-12-15', @last_article_id, 1);
+
+
+COMMIT;
+
+
 2. Créez une requête préparée pour insérer des commentaires
+
