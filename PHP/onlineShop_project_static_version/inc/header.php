@@ -1,29 +1,6 @@
 <?php
 require_once("inc/fonction.php");
 
-$disconnect="hidden";
-$profile="hidden";
-$registration ="";
-$connection="";
-
-if(isset($_SESSION["user"] ["status"]) === 0 ){
-    $registration ="";
-    $connection="";
-    $disconnect="hidden";
-    $profile="hidden";
-}else{
-    $registration ="hidden";
-    $connection="hidden";
-    $disconnect="";
-    $profile="";
-}
-
-
-
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +32,7 @@ if(isset($_SESSION["user"] ["status"]) === 0 ){
                     <li class="nav-item active">
                         <a class="nav-link" href="product_info.php">Shop <span class="sr-only">(current)</span></a>
                     </li>
-                    <?php if (!isUserConnected()){?>
+                    <?php if (!isUserConnected()){ var_dump(isUserConnected()) ?>
 
                     <li class="nav-item">
                         <a class="nav-link " href="connection.php">Connection</a>
@@ -81,6 +58,9 @@ if(isset($_SESSION["user"] ["status"]) === 0 ){
                             <?php if(isUserConnectedAndAdmin()){?>
                     <li class="nav-item">
                         <a class="nav-link" href="admin/index.php">BackOffice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product.php">product</a>
                     </li>
                           <?php  } ?>
 

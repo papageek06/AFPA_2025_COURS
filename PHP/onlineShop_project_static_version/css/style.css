@@ -36,3 +36,7 @@ main {
 footer {
     min-height: 20vh;
 }
+
+table {
+    border: 1px solid black;
+}
