@@ -44,16 +44,19 @@ require_once("inc/header.php");
 <form class="row col-md-12 align-items-center justify-content-center m-5" method="get" action="">
     <select class="form-control col-md-4" name="state">
 
-        <option value="none">Filtrer par état</option>
-        <option value="in progress">En cours de traitement</option>
-        <option value="sent">Envoyé</option>
-        <option value="delivered">Livré</option>
+        <option value="none"  >Filtrer par état</option>
+        <option value="in progress" <?= (isset($_GET['state']) && $_GET['state'] == 'in progress') ? 'selected' : '' ; ?>>En cours de traitement</option>
+        <option value="sent"  <?= (isset($_GET['state']) && $_GET['state'] == 'sent') ? 'selected' : '' ; ?>>Envoyé</option>
+        <option value="delivered"  <?= (isset($_GET['state']) && $_GET['state'] == 'delivered') ? 'selected' : '' ; ?>>Livré</option>
     
     </select>
 
     <p class="text-center mb-0 mr-3 ml-3">Ou</p>
 
-    <input type="text" name="id_order" class="form-control col-md-4" placeholder="Chercher une commande par son numéro" id="">
+    <input type="text" name="id_order"
+     value="<?= isset($_GET['id_order']) && $_GET["id_order"] !== "" && $_GET["state"] == "none" ? $_GET['id_order'] : '' ; ?>" 
+    class="form-control col-md-4" 
+    placeholder="Chercher une commande par son numéro" id="">
 
 </form>
 
