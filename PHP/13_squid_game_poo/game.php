@@ -1,13 +1,13 @@
 <?php
 
-    require_once("./Hero.php");
+    require_once("./IHero.php");
 
     class Game {
 
         private $listHeroes;
         private $listLevels;
         private $listEnemies;
-        private $hero;
+        private IHero $hero;
         private $level;
 
         public function __construct($listHeroes, $listLevels, $listEnemies) {
@@ -27,7 +27,7 @@
             echo "<br><br>Introducing all heroes... <br>";
 
             foreach($this->listHeroes as $hero) {
-                echo $hero->getName() . " combat avec " . $hero->getMarbles() . " billes, a un malus de ". $hero->getLoss() . " billes et un bonus de ". $hero->getGain() . " billes <br>";
+                $hero->introduce();
             }
 
             $this->askHeroToChooseLevel();
@@ -62,17 +62,27 @@
 
         private function handleEncounter($enemy, $enemyIndex) {
 
-            echo "Votre enemi a des billes dans la main, est-ce un chiffre pair (press 1), ou impair (press 2)";
+            echo "Votre enemi a des billes dans la main, est-ce un chiffre pair (press 1), ou impair (press 2)<br>";
             $choice = $this->hero->chooseOddOrEven();
 
+            echo $choice == 1 ? "PAIR ! <br>" : "IMPAIR ! <br>";
+
             if(($enemy->getMarbles() % 2 == 0 && $choice == 1) || $enemy->getMarbles() % 2 != 0 && $choice == 2) {
-                $this->hero->setMarbles( $this->hero->getMarbles() + $enemy->getMarbles());
-                array_slice($this->listEnemies, $enemyIndex); // je supprime l'ennemi du jeu
-                echo "Bravo, vous avez gagné ". $enemy->getMarbles() . " billes ! <br> il vous reste ". $this->hero->getMarbles() . " billes <br>";
+                $gain = $enemy->getMarbles() + $this->hero->getGain();
+                $this->hero->setMarbles( $this->hero->getMarbles() + $gain);
+                array_slice($this->listEnemies, $enemyIndex); // je supprime l'ennemi du jeu`
+
+                echo "Bien joué, l'ennemi avait " . $enemy->getMarbles() . " billes dans sa main ! <br>";
+                echo "Vous remportez $gain billes ! <br>";
             } else {
-                $this->hero->setMarbles( $this->hero->getMarbles() - $enemy->getMarbles());
-                echo "Dommage, vous avez perdu ". $enemy->getMarbles() . " billes ! <br> il vous resqte ". $this->hero->getMarbles() . " billes <br>";
+                $loss = $enemy->getMarbles() + $this->hero->getLoss();
+                $this->hero->setMarbles( $this->hero->getMarbles() - $loss);
+
+                echo "HAHAHA vous avez perdu cette partie, l'ennemi avait " . $enemy->getMarbles() . " billes dans sa main ! <br>";
+                echo "Vous perdez $loss billes ! <br>";
             }
+
+            echo "Il vous reste actuellement " . $this->hero->getMarbles() . " billes dans votre main ! <br><br>";
 
 
         }
@@ -87,16 +97,20 @@
 
                 $randomEnemyIndex = Utils::randomNumber(0, count($this->listEnemies) -1 );
                 $enemy = $this->listEnemies[$randomEnemyIndex];
-                echo "Vous affronté l'ennemi". $enemy->getName()." ! Préparez-vous !";
+                echo "Vous affronté l'ennemi " . $enemy->getName() . " ! Préparez-vous !<br>";
+
+                $this->level--;
+                $counter++;
 
                 if($enemy->getAge() >= 70) {
                     echo "Votre enemit est vieux, souhaitez-vous profitez de lui en trichant? 1 - ( OUI ) / 2 - ( NON )<br>";
 
                     if($this->hero->cheat()) {
                         echo "Insatiable petite fouine, votre enemi meurt et vous remporter ses billes ! <br>";
+                        echo "Vous remportez " . $enemy->getMarbles() . " billes que l'ennemi avait dans sa main !<br>";
                         $this->hero->setMarbles( $this->hero->getMarbles() + $enemy->getMarbles() );
-                        // je gagne la partie 
-                        // mon enemit meurt
+                        echo "Il vous reste actuellement " . $this->hero->getMarbles() . " billes dans votre main ! <br><br>";
+                        array_slice($this->listEnemies, $randomEnemyIndex);
                         continue;
                     } else {
                         echo "C'est honorable, vous avez décidé de rester loyal ! <br>";
@@ -104,10 +118,7 @@
 
                 }
 
-                $this->handleEncounter($enemy , $randomEnemyIndex);
-
-                $this->level--;
-                $counter++;
+                $this->handleEncounter($enemy, $randomEnemyIndex);
 
             }
 
@@ -118,12 +129,15 @@
         private function end() {
             echo "<br><br>Ending game... <br>";
 
+            if($this->hero->getMarbles() > 0) {
+                echo "Bien joué, vous remportez 45, 6 milliards de won sud coréen !";
+            } else {
+                echo "HAHAHAHA, bienvenu en enfer !";
+            }
+
         }
         
     }
 
 
 ?>
-
-
-

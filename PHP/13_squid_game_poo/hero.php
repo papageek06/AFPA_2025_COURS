@@ -1,8 +1,9 @@
 <?php
 
-    require_once("Character.php");
+    require_once("./Character.php");
+    require_once("./IHero.php");
 
-    class Hero extends Character {
+    class Hero extends Character implements IHero{
 
         private $loss;
         private $gain;
@@ -39,6 +40,7 @@
         }
 
         public function introduce(){
+            echo $this->getName() . " combat avec " . $this->getMarbles() . " billes, a un malus de ". $this->getLoss() . " billes et un bonus de ". $this->getGain() . " billes <br>";
 
         }
 
